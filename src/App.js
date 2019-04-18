@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApolloClient from "apollo-client";
 import { ApolloProvider } from "react-apollo";
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
@@ -12,8 +12,10 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 import Navbar from './components/Navbar';
+
 import LoginPage from './pages/Login';
 import ParametersPage from './pages/Parameters';
+import ParameterHistoryPage from './pages/ParameterHistory';
 
 const history = createBrowserHistory();
 
@@ -21,7 +23,8 @@ const httpLink = createHttpLink({
   uri: 'https://192.168.1.9:4000/graphql',
   fetchOptions: {
     agent: new Agent({
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
+      credentials: 'include'
     })
   }
 });
@@ -43,7 +46,7 @@ const errorHandler = onError(({ graphQLErrors, networkError }) => {
     if (networkError.statusCode === 401) {
       history.push('/login');
     } else {
-      console.log(networkError);
+      console.error(networkError);
     }
   }
 });
@@ -64,8 +67,12 @@ class App extends Component {
         <Router history={history}>
           <div className="App">
             <Navbar />
-            <Route exact path="/login" component={LoginPage}/>
-            <Route exact path="/parameters" component={ParametersPage}/>
+            <Switch>
+              <Route exact path="/login" component={LoginPage}/>
+              <Route exact path="/parameters" component={ParametersPage}/>
+              <Route exact path="/parameterHistory" component={ParameterHistoryPage}/>
+              <Redirect from="/" to="/parameters" />
+            </Switch>
           </div>
         </Router>
       </ApolloProvider>

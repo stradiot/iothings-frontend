@@ -1,13 +1,17 @@
 import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import M from "materialize-css";
 import moment from 'moment';
 
 import ParameterDetail from '../components/ParameterDetail';
+import ErrorModal from '../components/ErrorModal';
+
+import SetValue from '../mutations/SetValue';
 
 var onRowClick;
 
-const AllDevParamsQuery = ({ modal }) => (
+const AllDevParamsQuery = ({ history }) => (
   <Query
     query={gql`
       query {
@@ -34,7 +38,12 @@ const AllDevParamsQuery = ({ modal }) => (
     `}
   >
     {({ loading, error, data }) => {
-      if (error) return <p>{error.toString()}</p>;
+      if (error) {
+        const { graphQLErrors, networkError } = error;
+
+        if (networkError) return <ErrorModal message={networkError.message}/>;
+        if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+      }
 
       if (loading) return(
         <div className="preloader-wrapper big active">
@@ -51,18 +60,27 @@ const AllDevParamsQuery = ({ modal }) => (
       )
 
       const rows = data.AllDeviceParams.map(param => {
-        const { paramId, name, value, units, timestamp, device } = param;
+        const { paramId, name, value, units, protocol, timestamp, device } = param;
         return (
-          <tr onClick={() => onRowClick(param)} key={`${paramId}`}>
-            <td>{name}</td>
-            <td>{device.name}</td>
-            <td>{value}</td>
-            <td>{units}</td>
-            <td>{moment.unix(timestamp).format('D/M/Y HH:mm:ss')}</td>
+          <tr key={`${paramId}`}>
+            <td onClick={() => onRowClick(param)}>{name}</td>
+            <td onClick={() => onRowClick(param)}>{device.name}</td>
+            <td onClick={() => onRowClick(param)}>{value}</td>
+            <td onClick={() => onRowClick(param)}>{units}</td>
+            <td onClick={() => onRowClick(param)}>{protocol.name}</td>
+            <td onClick={() => onRowClick(param)}>{moment.unix(timestamp).format('Y-M-D HH:mm:ss')}</td>
             <td>
-              <button className="btn waves-effect waves-light indigo" id="13">
-                Set value
-              </button>
+              <div>
+                <SetValue paramId={paramId}></SetValue>
+                <button className="btn waves-effect waves-light indigo" onClick={
+                  e => {
+                    const modal = document.getElementById(`SetValue${paramId}`);
+                    M.Modal.getInstance(modal).open();
+                  }
+                }>
+                  <i className="material-icons">settings</i>
+                </button>
+              </div>
             </td>
           </tr>
         );
@@ -70,7 +88,7 @@ const AllDevParamsQuery = ({ modal }) => (
 
       return (
         <div>
-          <ParameterDetail setClick={click => onRowClick = click}/>
+          <ParameterDetail history={history} setClick={click => onRowClick = click}/>
           <table className="responsive-table highlight centered">
             <thead>
               <tr>
@@ -78,6 +96,7 @@ const AllDevParamsQuery = ({ modal }) => (
                   <th>Device</th>
                   <th>Value</th>
                   <th>Units</th>
+                  <th>Protocol</th>
                   <th>Updated</th>
               </tr>
             </thead>

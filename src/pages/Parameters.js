@@ -5,7 +5,7 @@ class Parameters extends Component {
     render(){
       return (
         <div style={{ marginTop: "50px" }} className="container section center">
-          <AllDevParamsQuery props="aa"/>
+          <AllDevParamsQuery history={this.props.history}/>
         </div>
       );
     }

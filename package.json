@@ -7,11 +7,13 @@
     "graphql": "^14.2.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.24.0",
+    "pondjs": "^0.8.10",
     "react": "^16.8.6",
     "react-apollo": "^2.5.3",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-timeseries-charts": "^0.15.5"
   },
   "scripts": {
     "start": "react-scripts start",

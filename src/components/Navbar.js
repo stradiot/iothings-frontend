@@ -29,6 +29,7 @@ class Navbar extends Component {
 
         <ul className="sidenav" id="links">
           <li><Link to="/parameters">Parameters</Link></li>
+          <li><Link to="/parameterHistory">Parameter history</Link></li>
         </ul>
       </div>
     );

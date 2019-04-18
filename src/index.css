@@ -22,6 +22,10 @@ code {
   box-shadow: 0 1px 0 0 #3f51b5 !important;
 }
 
+.input-field .prefix.active {
+  color: #3f51b5 !important;
+}
+
 .input-field input[type=password]:focus + label {
   color: #3f51b5 !important;
 }
@@ -32,10 +36,10 @@ code {
 }
 
 .vcenter  {
-	position:absolute;
+	position: absolute;
 	top: 50%;
 	transform: translateY(-50%) translateX(-50%);
-	left:50%;
+	left: 50%;
 }
 
 .flex {
@@ -43,10 +47,44 @@ code {
   flex-wrap: wrap;
 }
 
-.truncated {
-  width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
+ul.dropdown-content.select-dropdown li span {
+  color: #3f51b5;
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done,
+.datepicker-table td.is-today {
+  color: #3f51b5 !important;
+}
+.datepicker-date-display,
+.datepicker-table td.is-selected{
+  color: #fff !important;
+  background-color: #3f51b5 !important;
+}
+.datepicker-day-button:focus,
+.month-prev:focus,
+.month-next:focus{
+  background-color: rgba(63,81,181,0.3) !important;
+}
+
+
+.timepicker-digital-display {
+  background-color: #3f51b5 !important;
+}
+.timepicker-tick.active,
+.timepicker-tick:hover {
+	background-color: rgba(63,81,181,0.3) !important;
+}
+.timepicker-canvas line {
+  stroke: #3f51b5 !important;
+}
+.timepicker-canvas-bearing,
+.timepicker-canvas-bg {
+	fill: rgba(63,81,181,0.5) !important;
+}
+.timepicker-clear,
+.timepicker-close {
+  color: #3f51b5 !important;
 }

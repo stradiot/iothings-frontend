@@ -4,6 +4,7 @@ import moment from 'moment';
 
 class ParameterDetail extends Component {
     state = {
+      paramId: 0,
       name: '',
       device: {},
       value: '',
@@ -66,15 +67,15 @@ class ParameterDetail extends Component {
               <div>
                 Updated
                 <div className="secondary-content indigo-text">
-                  {moment.unix(this.state.timestamp).format('D/M/Y HH:mm:ss')}
+                  {moment.unix(this.state.timestamp).format('Y-M-D HH:mm:ss')}
                 </div>
               </div>
             </li>
             <li className="collection-item left-align">
               <div>
-                Polled
+                Polling
                 <div className="secondary-content indigo-text">
-                  {this.state.polled.toString()}
+                  {this.state.polled ? 'enabled' : 'disabled'}
                 </div>
               </div>
             </li>
@@ -82,7 +83,7 @@ class ParameterDetail extends Component {
               <div>
                 RRD logging
                 <div className="secondary-content indigo-text">
-                  {this.state.rrdEnable.toString()}
+                  {this.state.rrdEnable ? 'enabled' : 'disabled'}
                 </div>
               </div>
             </li>
@@ -113,8 +114,16 @@ class ParameterDetail extends Component {
           </ul>
           <div className="modal-footer">
             {
-              this.props.polled ?
-                <button className="btn waves-effect waves-light indigo">Show RRD history
+              this.state.rrdEnable ?
+                <button className="btn waves-effect waves-light indigo" onClick={
+                  (e) => {
+                    e.preventDefault();
+                    this.props.history.push({
+                      pathname: '/parameterHistory',
+                      state: { paramId: this.state.paramId }
+                    })
+                  }
+                }>Show RRD history
                   <i className="material-icons right">timeline</i>
                 </button>
               :
