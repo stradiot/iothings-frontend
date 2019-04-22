@@ -24,8 +24,8 @@ class ParameterHistory extends Component {
     this.endTime = React.createRef();
   }
   componentDidMount() {
-    const selects = document.querySelectorAll('select');
-    M.FormSelect.init(selects);
+    const select = document.getElementById('ResolutionSelect');
+    M.FormSelect.init(select);
 
     const startDate = document.getElementById('startDate');
     M.Datepicker.init(startDate, {
@@ -87,20 +87,27 @@ class ParameterHistory extends Component {
           <div className="row">
             <div className="col s6">
               <div className="input-field">
-                <DevParamNamesQuery paramId={this.data.paramId} onSelect={(e) => (this.data.paramId = Number(e.target.value))}/>
+                <DevParamNamesQuery
+                  paramId={this.data.paramId}
+                  onChange={(e) => (this.data.paramId = Number(e.target.value))}
+                />
               </div>
-              <div className="input-field">
+              <div className="input-field" style={{ marginTop: '30px' }}>
                 <input type="text" id="startDate" className="datepicker"/>
                 <label htmlFor="startDate">Start date</label>
               </div>
-              <div className="input-field">
+              <div className="input-field" style={{ marginTop: '30px' }}>
                 <input type="text" id="startTime" ref={this.startTime} className="timepicker"/>
                 <label htmlFor="startTime">Start time</label>
               </div>
             </div>
             <div className="col s6">
               <div className="input-field">
-                <select defaultValue="default" onChange={(e) => (this.data.resolution = Number(e.target.value))}>
+                <select
+                  id="ResolutionSelect"
+                  defaultValue="default"
+                  onChange={(e) => (this.data.resolution = Number(e.target.value))}
+                >
                   <option value="default" disabled>Choose resolution</option>
                   <option value={60}>1 minute</option>
                   <option value={120}>2 minutes</option>
@@ -109,13 +116,12 @@ class ParameterHistory extends Component {
                   <option value={900}>15 minutes</option>
                   <option value={1800}>30 minutes</option>
                 </select>
-                <label>Resolution</label>
               </div>
-              <div className="input-field">
+              <div className="input-field" style={{ marginTop: '30px' }}>
                 <input type="text" id="endDate" className="datepicker"/>
                 <label htmlFor="endDate">End date</label>
               </div>
-              <div className="input-field">
+              <div className="input-field" style={{ marginTop: '30px' }}>
                 <input type="text" id="endTime" ref={this.endTime} className="timepicker"/>
                 <label htmlFor="endTime">End time</label>
               </div>

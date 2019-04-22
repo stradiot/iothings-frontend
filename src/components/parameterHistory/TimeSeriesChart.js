@@ -15,13 +15,21 @@ const LineStyler = styler([
 ]);
 
 const markerStyle = {
-  backgroundColor: 'rgba(63, 81, 181, 0.5)',
+  backgroundColor: 'rgba(63, 81, 181, 0.3)',
   color: "black",
   marginLeft: "5px",
   borderStyle: "solid",
   borderWidth: "thin",
   borderRadius: "7px",
   padding: "5px"
+};
+
+const trackerStyle = {
+  line: {
+    stroke: "rgba(63, 81, 181, 0.5)",
+    cursor: "default",
+    pointerEvents: "none"
+  }
 };
 
 class TimeSeriesChart extends Component {
@@ -53,12 +61,13 @@ class TimeSeriesChart extends Component {
                         }).format(this.state.tracker)
                     }
                     <br/>
-                    <br/>
-                    {
-                      this.state.trackerEvent.get('value') === null ?
-                      null
-                      : this.state.trackerEvent.get('value').toFixed(4)
-                    }
+                    <b>
+                      {
+                        this.state.trackerEvent.get('value') === null ?
+                        null
+                        : `Value: ${this.state.trackerEvent.get('value').toFixed(4)}`
+                      }
+                    </b>
                   </div>
               </div>
           </div>
@@ -75,6 +84,7 @@ class TimeSeriesChart extends Component {
               })
             }
             trackerPosition={this.state.tracker}
+            trackerStyle={trackerStyle}
             enableDragZoom={true}
             maxTime={this.series.range().end()}
             minTime={this.series.range().begin()}

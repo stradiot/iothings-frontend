@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/ErrorModal';
-import TimeSeriesChart from '../components/TimeSeriesChart';
+import ErrorModal from '../components/common/ErrorModal';
+import TimeSeriesChart from '../components/parameterHistory/TimeSeriesChart';
 
 class ParameterHistoryQuery extends Component {
   render(){

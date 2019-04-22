@@ -2,7 +2,7 @@ import React from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import SetValueModal from "../components/SetValueModal";
+import SetValueModal from "../components/parameters/SetValueModal";
 
 const SET_VALUE = gql`
   mutation setValue($paramId: Int!, $value: String!) {

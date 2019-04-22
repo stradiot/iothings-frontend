@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/ErrorModal';
+import ErrorModal from '../components/common/ErrorModal';
+import ParameterSelect from '../components/parameterHistory/ParameterSelect';
 
 class DevParamNamesQuery extends Component {
   render(){
@@ -13,6 +14,7 @@ class DevParamNamesQuery extends Component {
             AllDeviceParams {
               paramId
               name
+              rrdEnable
             }
           }
         `}
@@ -27,21 +29,14 @@ class DevParamNamesQuery extends Component {
 
           if (loading) return null;
 
-          const options = data.AllDeviceParams.map(({paramId, name}) => (
-            <option key={paramId} value={paramId}>{name}</option>
-          ));
-
-          let defaultValue = 'default';
-
-          if (this.props.paramId !== undefined) {
-            defaultValue = this.props.paramId;
-          }
+          const parameters = data.AllDeviceParams.filter(({ rrdEnable }) => rrdEnable);
 
           return (
-            <select defaultValue={defaultValue} className="browser-default" onChange={this.props.onSelect}>
-              <option value="default" disabled>Choose parameter</option>
-              {options}
-            </select>
+            <ParameterSelect
+              paramId={this.props.paramId}
+              onChange={this.props.onChange}
+              data={parameters}
+            />
           );
         }}
       </Query>

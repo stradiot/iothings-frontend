@@ -3,39 +3,20 @@ import M from "materialize-css";
 import moment from 'moment';
 
 class ParameterDetail extends Component {
-    state = {
-      paramId: 0,
-      name: '',
-      device: {},
-      value: '',
-      units: '',
-      timestamp: 0,
-      polled: false,
-      rrdEnable: false,
-      parameter: {},
-      protocol: {},
-      details: ''
-    }
-    show = (data) => {
-      this.setState(data);
-      const modal = document.getElementById('modal');
-      M.Modal.getInstance(modal).open();
-    }
     componentDidMount() {
-      const modal = document.getElementById('modal');
+      const modal = document.getElementById(`Parameter${this.props.data.paramId}`);
       M.Modal.init(modal);
-      this.props.setClick(this.show);
     }
     render(){
       return (
-        <div className="modal" id="modal">
+        <div className="modal" id={`Parameter${this.props.data.paramId}`}>
           <h5>Parameter details</h5>
           <ul className="collection">
             <li className="collection-item left-align">
               <div>
                 Name
                 <div className="secondary-content indigo-text">
-                  {this.state.name}
+                  {this.props.data.name}
                 </div>
               </div>
             </li>
@@ -43,7 +24,7 @@ class ParameterDetail extends Component {
               <div>
                 Device
                 <div className="secondary-content indigo-text">
-                  {this.state.device.name}
+                  {this.props.data.device.name}
                 </div>
               </div>
             </li>
@@ -51,7 +32,7 @@ class ParameterDetail extends Component {
               <div>
                 Value
                 <div className="secondary-content indigo-text">
-                  {this.state.value}
+                  {this.props.data.value}
                 </div>
               </div>
             </li>
@@ -59,7 +40,7 @@ class ParameterDetail extends Component {
               <div>
                 Units
                 <div className="secondary-content indigo-text">
-                  {this.state.units}
+                  {this.props.data.units}
                 </div>
               </div>
             </li>
@@ -67,7 +48,7 @@ class ParameterDetail extends Component {
               <div>
                 Updated
                 <div className="secondary-content indigo-text">
-                  {moment.unix(this.state.timestamp).format('Y-M-D HH:mm:ss')}
+                  {moment.unix(this.props.data.timestamp).format('Y-M-D HH:mm:ss')}
                 </div>
               </div>
             </li>
@@ -75,7 +56,7 @@ class ParameterDetail extends Component {
               <div>
                 Polling
                 <div className="secondary-content indigo-text">
-                  {this.state.polled ? 'enabled' : 'disabled'}
+                  {this.props.data.polled ? 'enabled' : 'disabled'}
                 </div>
               </div>
             </li>
@@ -83,7 +64,7 @@ class ParameterDetail extends Component {
               <div>
                 RRD logging
                 <div className="secondary-content indigo-text">
-                  {this.state.rrdEnable ? 'enabled' : 'disabled'}
+                  {this.props.data.rrdEnable ? 'enabled' : 'disabled'}
                 </div>
               </div>
             </li>
@@ -91,7 +72,7 @@ class ParameterDetail extends Component {
               <div>
                 Parameter
                 <div className="secondary-content indigo-text">
-                  {this.state.parameter.name}
+                  {this.props.data.parameter.name}
                 </div>
               </div>
             </li>
@@ -99,7 +80,7 @@ class ParameterDetail extends Component {
               <div>
                 Protocol
                 <div className="secondary-content indigo-text">
-                  {this.state.protocol.name}
+                  {this.props.data.protocol.name}
                 </div>
               </div>
             </li>
@@ -107,20 +88,20 @@ class ParameterDetail extends Component {
               <div>
                 Details
                 <div className="secondary-content indigo-text">
-                  {this.state.details}
+                  {this.props.data.details}
                 </div>
               </div>
             </li>
           </ul>
           <div className="modal-footer">
             {
-              this.state.rrdEnable ?
+              this.props.data.rrdEnable ?
                 <button className="btn waves-effect waves-light indigo" onClick={
                   (e) => {
                     e.preventDefault();
                     this.props.history.push({
                       pathname: '/parameterHistory',
-                      state: { paramId: this.state.paramId }
+                      state: { paramId: this.props.data.paramId }
                     })
                   }
                 }>Show RRD history
