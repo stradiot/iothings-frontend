@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import AllDevParamsQuery from '../queries/AllDevParamsQuery';
+
+import AllDevParamsQuery from '../queries/parameters/AllDevParamsQuery';
 
 class Parameters extends Component {
     render(){

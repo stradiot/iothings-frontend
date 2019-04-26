@@ -2,7 +2,7 @@ import React from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import RestartModuleModal from "../components/modules/RestartModuleModal";
+import RestartModuleModal from "../../components/modules/RestartModuleModal";
 
 const RESTART_MODULE = gql`
   mutation restartModule($moduleId: ID!) {

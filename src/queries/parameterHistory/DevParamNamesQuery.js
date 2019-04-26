@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/common/ErrorModal';
-import ParameterSelect from '../components/parameterHistory/ParameterSelect';
+import ErrorModal from '../../components/common/ErrorModal';
+import ParameterSelect from '../../components/parameterHistory/ParameterSelect';
 
 class DevParamNamesQuery extends Component {
   render(){

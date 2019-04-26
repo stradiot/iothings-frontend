@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import M from "materialize-css";
 
-import RestartModule from '../../mutations/RestartModule';
+import RestartModule from '../../mutations/modules/RestartModule';
 
 class ActiveModulesTable extends Component {
   render(){

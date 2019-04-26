@@ -2,8 +2,8 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/common/ErrorModal';
-import ActiveModulesTable from '../components/modules/ActiveModulesTable';
+import ErrorModal from '../../components/common/ErrorModal';
+import ActiveModulesTable from '../../components/modules/ActiveModulesTable';
 
 const ActiveModulesQuery = () => (
   <Query

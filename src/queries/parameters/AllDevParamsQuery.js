@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/common/ErrorModal';
-import AllDevParamsTable from '../components/parameters/AllDevParamsTable';
+import ErrorModal from '../../components/common/ErrorModal';
+import AllDevParamsTable from '../../components/parameters/AllDevParamsTable';
 
 const query = gql`
   query {

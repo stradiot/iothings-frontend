@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import ParameterDetail from './ParameterDetail';
 
-import SetValue from '../../mutations/SetValue';
+import SetValue from '../../mutations/parameters/SetValue';
 
 const onRowClick = (paramId) => {
   const modal = document.getElementById(`Parameter${paramId}`);

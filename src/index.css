@@ -50,6 +50,9 @@ code {
 ul.dropdown-content.select-dropdown li span {
   color: #3f51b5;
 }
+ul.dropdown-content.select-dropdown li.disabled span {
+  color: grey;
+}
 
 .datepicker-cancel,
 .datepicker-clear,

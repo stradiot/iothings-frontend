@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import M from "materialize-css";
 
-import DevParamNamesQuery from '../queries/DevParamNamesQuery';
-import ParameterHistoryQuery from '../queries/ParameterHistoryQuery';
+import DevParamNamesQuery from '../queries/parameterHistory/DevParamNamesQuery';
+import ParameterHistoryQuery from '../queries/parameterHistory/ParameterHistoryQuery';
 
 class ParameterHistory extends Component {
   data = {

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ZwaveDeviceQuery from '../../queries/zwave/ZwaveDeviceQuery';
+
 class AllZwaveDevicesTable extends Component {
   componentDidMount(){
     this.props.subscribeToNodeAdded();
@@ -8,26 +10,16 @@ class AllZwaveDevicesTable extends Component {
   }
   render(){
     const rows = this.props.data.map(device => {
-      const { moduleId, nodeId, manufacturer, product, type } = device;
+      const { moduleId, nodeId } = device;
+
       return (
-        <tr key={`${moduleId}${nodeId}`} style={{ cursor: 'default' }}>
-          <td>{moduleId}</td>
-          <td>{nodeId}</td>
-          <td>{manufacturer}</td>
-          <td>{product}</td>
-          <td>{type}</td>
-          <td>
-            <button className="btn waves-effect waves-light indigo">
-              <i className="material-icons">map</i>
-            </button>
-          </td>
-        </tr>
+        <ZwaveDeviceQuery key={`${moduleId}${nodeId}`} data={device} history={this.props.history}/>
       );
     });
 
     return (
       <div>
-        <table className="responsive-table centered">
+        <table className="responsive-table centered highlight">
           <thead>
             <tr>
                 <th>Module ID</th>

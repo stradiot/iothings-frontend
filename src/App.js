@@ -21,6 +21,7 @@ import ParametersPage from './pages/Parameters';
 import ModulesPage from './pages/Modules';
 import ParameterHistoryPage from './pages/ParameterHistory';
 import ZwavePage from './pages/Zwave';
+import MapZwavePage from './pages/MapZwave';
 
 
 const history = createBrowserHistory();
@@ -96,6 +97,7 @@ class App extends Component {
               <Route exact path="/parameterHistory" component={ParameterHistoryPage}/>
               <Route exact path="/modules" component={ModulesPage}/>
               <Route exact path="/zwave" component={ZwavePage}/>
+              <Route exact path="/zwave/mapZwave" component={MapZwavePage}/>
               <Redirect from="/" to="/parameters"/>
             </Switch>
           </div>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import M from "materialize-css";
 
-import AllZwaveDevicesQuery from '../queries/AllZwaveDevicesQuery';
+import AllZwaveDevicesQuery from '../queries/zwave/AllZwaveDevicesQuery';
 
 class Zwave extends Component {
     render(){
       return (
         <div style={{ marginTop: "50px" }} className="container section center">
-          <AllZwaveDevicesQuery/>
+          <AllZwaveDevicesQuery history={this.props.history}/>
           <span style={{ position: 'absolute', bottom: 0, right: '15%' }}>
             <button
               className="btn waves-effect waves-light indigo"

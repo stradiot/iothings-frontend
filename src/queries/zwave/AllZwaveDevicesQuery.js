@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../components/common/ErrorModal';
-import AllZwaveDevicesTable from '../components/zwave/AllZwaveDevicesTable';
-import ZwaveAddNodeMutation from '../mutations/ZwaveAddNode';
-import ZwaveRemoveNodeMutation from '../mutations/ZwaveRemoveNode';
+import ErrorModal from '../../components/common/ErrorModal';
+import AllZwaveDevicesTable from '../../components/zwave/AllZwaveDevicesTable';
+import ZwaveAddNodeMutation from '../../mutations/zwave/ZwaveAddNode';
+import ZwaveRemoveNodeMutation from '../../mutations/zwave/ZwaveRemoveNode';
 
 const query = gql`
   query {
@@ -80,6 +80,7 @@ class AllZwaveDevicesQuery extends Component {
             <div>
               <AllZwaveDevicesTable
                 data={data.AllZwaveDevices}
+                history={this.props.history}
                 subscribeToNodeAdded={() =>
                   subscribeToMore({
                     document: NODE_ADDED_SUBSCRIPTION,
@@ -90,7 +91,8 @@ class AllZwaveDevicesQuery extends Component {
                         ...subscriptionData.data.zwaveNodeAdded,
                         manufacturer: '',
                         product: '',
-                        type: ''
+                        type: '',
+                        parameters: []
                       };
 
                       return {

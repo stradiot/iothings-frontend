@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ActiveModulesQuery from '../queries/ActiveModulesQuery';
+import ActiveModulesQuery from '../queries/modules/ActiveModulesQuery';
 
 class Modules extends Component {
     render(){

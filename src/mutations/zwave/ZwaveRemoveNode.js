@@ -2,7 +2,7 @@ import React from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import ZwaveRemoveNodeModal from "../components/zwave/ZwaveRemoveNodeModal";
+import ZwaveRemoveNodeModal from "../../components/zwave/ZwaveRemoveNodeModal";
 
 const ZWAVE_REMOVE_NODE = gql`
   mutation($moduleId: ID!){
