@@ -18,6 +18,8 @@ import Navbar from './components/common/Navbar';
 
 import LoginPage from './pages/Login';
 import ParametersPage from './pages/Parameters';
+import DevicesPage from './pages/Devices';
+import CreateDeviceTypePage from './pages/CreateDeviceType';
 import ModulesPage from './pages/Modules';
 import ParameterHistoryPage from './pages/ParameterHistory';
 import ZwavePage from './pages/Zwave';
@@ -95,6 +97,8 @@ class App extends Component {
               <Route exact path="/login" component={LoginPage}/>
               <Route exact path="/parameters" component={ParametersPage}/>
               <Route exact path="/parameterHistory" component={ParameterHistoryPage}/>
+              <Route exact path="/devices" component={DevicesPage}/>
+              <Route exact path="/devices/createDeviceType" component={CreateDeviceTypePage}/>
               <Route exact path="/modules" component={ModulesPage}/>
               <Route exact path="/zwave" component={ZwavePage}/>
               <Route exact path="/zwave/mapZwave" component={MapZwavePage}/>

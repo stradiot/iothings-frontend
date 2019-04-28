@@ -51,6 +51,7 @@ class Navbar extends Component {
           <h3 className="indigo-text">IoThings</h3>
           <li onClick={this.onLinkClick}><Link to="/parameters">Parameters</Link></li>
           <li onClick={this.onLinkClick}><Link to="/parameterHistory">Parameter history</Link></li>
+          <li onClick={this.onLinkClick}><Link to="/devices">Devices</Link></li>
           <li onClick={this.onLinkClick}><Link to="/modules">Communication modules</Link></li>
           <li onClick={this.onLinkClick}><Link to="/zwave">Z-Wave</Link></li>
           <li onClick={this.onLogoutClick} style={{ marginTop: "auto" }}>

@@ -1,53 +1,25 @@
 import React, { Component } from 'react';
 import M from "materialize-css";
+import moment from 'moment';
 
-const onRowClick = (moduleId, valueId) => {
-  const modal = document.getElementById(`ZwaveParameterDetail${moduleId}${valueId}`);
+const onRowClick = (paramId) => {
+  const modal = document.getElementById(`DeviceParameterDetail${paramId}`);
   M.Modal.getInstance(modal).open();
 }
 
-class ZwaveDeviceDetail extends Component {
+class DeviceDetail extends Component {
     componentDidMount() {
-      const modal = document.getElementById(`ZwaveDeviceDetail${this.props.data.moduleId}${this.props.data.nodeId}`);
+      const modal = document.getElementById(`DeviceDetail${this.props.data.devId}`);
       M.Modal.init(modal);
     }
     render(){
       const data = this.props.data;
       const parameters = data.parameters.map(parameter => (
-        <tr key={`${data.moduleId}${parameter.valueId}`} style={{ cursor: 'pointer' }}>
-          <td onClick={() => onRowClick(data.moduleId, parameter.valueId)}>{parameter.name}</td>
-          <td onClick={() => onRowClick(data.moduleId, parameter.valueId)}>{parameter.valueId}</td>
-          <td onClick={() => onRowClick(data.moduleId, parameter.valueId)}>{parameter.value}</td>
-          <td>
-            <button
-              style={{ display: 'block' }}
-              className="btn-small waves-effect waves-light indigo"
-              onClick={() => {
-                const modal = document.getElementById(`ZwaveEnablePollModal${data.moduleId}${parameter.valueId}`);
-                M.Modal.getInstance(modal).open();
-              }}
-              >
-              <i className="material-icons">update</i>
-            </button>
-            { parameter.polled ?
-              <button
-                style={{ display: 'block' }}
-                className="btn-small waves-effect waves-light red"
-                onClick={() => {
-                  const modal = document.getElementById(`ZwaveDisablePollModal${data.moduleId}${parameter.valueId}`);
-                  M.Modal.getInstance(modal).open();
-                }}
-                >
-                <i className="material-icons">update</i>
-              </button>
-            : <button
-              style={{ display: 'block' }}
-              className="btn-small disabled"
-              >
-                <i className="material-icons">update</i>
-              </button>
-            }
-          </td>
+        <tr key={`${parameter.paramId}`} style={{ cursor: 'pointer' }}>
+          <td onClick={() => onRowClick(parameter.paramId)}>{parameter.name}</td>
+          <td onClick={() => onRowClick(parameter.paramId)}>{parameter.value}</td>
+          <td onClick={() => onRowClick(parameter.paramId)}>{parameter.units}</td>
+          <td onClick={() => onRowClick(parameter.paramId)}>{parameter.parameter.name}</td>
         </tr>
       ));
 
@@ -55,7 +27,7 @@ class ZwaveDeviceDetail extends Component {
         <div
           style={{ cursor: 'default', textAlign: 'left' }}
           className="modal"
-          id={`ZwaveDeviceDetail${data.moduleId}${data.nodeId}`}
+          id={`DeviceDetail${data.devId}`}
           >
           <div className="card indigo" style={{ margin: '0px' }}
             >
@@ -67,9 +39,9 @@ class ZwaveDeviceDetail extends Component {
                   className="collection-item left-align indigo"
                   >
                    <div>
-                     Module ID
+                     Name
                      <div className="secondary-content white-text">
-                       {data.moduleId}
+                       {data.name}
                      </div>
                    </div>
                 </li>
@@ -78,9 +50,9 @@ class ZwaveDeviceDetail extends Component {
                   className="collection-item left-align indigo"
                   >
                   <div>
-                     Node ID
+                     Supplier
                      <div className="secondary-content white-text">
-                       {data.nodeId}
+                       {data.type.supplier}
                      </div>
                    </div>
                 </li>
@@ -89,9 +61,9 @@ class ZwaveDeviceDetail extends Component {
                   className="collection-item left-align indigo"
                   >
                   <div>
-                     Manufacturer
+                     Model
                      <div className="secondary-content white-text">
-                       {data.manufacturer}
+                       {data.type.model}
                      </div>
                    </div>
                 </li>
@@ -100,9 +72,9 @@ class ZwaveDeviceDetail extends Component {
                   className="collection-item left-align indigo"
                   >
                   <div>
-                     Product
+                     Type
                      <div className="secondary-content white-text">
-                       {data.product}
+                       {data.type.type}
                      </div>
                    </div>
                 </li>
@@ -111,9 +83,20 @@ class ZwaveDeviceDetail extends Component {
                   className="collection-item left-align indigo"
                   >
                    <div>
-                     Type
+                     Created
                      <div className="secondary-content white-text">
-                       {data.type}
+                       {moment.unix(data.created).format('Y-M-D HH:mm:ss')}
+                     </div>
+                   </div>
+                </li>
+                <li
+                  style={{ border: 'none', paddingTop: '0px', paddingBottom: '0px' }}
+                  className="collection-item left-align indigo"
+                  >
+                   <div>
+                     Details
+                     <div className="secondary-content white-text">
+                       {data.details}
                      </div>
                    </div>
                 </li>
@@ -126,9 +109,10 @@ class ZwaveDeviceDetail extends Component {
           <table className="responsive-table centered highlight">
             <thead>
               <tr>
-                  <th>Parameter</th>
-                  <th>Value ID</th>
+                  <th>Parameter name</th>
                   <th>Value</th>
+                  <th>Units</th>
+                  <th>Parameter</th>
               </tr>
             </thead>
             <tbody>
@@ -140,4 +124,4 @@ class ZwaveDeviceDetail extends Component {
     }
 }
 
-export default ZwaveDeviceDetail;
+export default DeviceDetail;
