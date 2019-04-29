@@ -29,7 +29,7 @@ import MapZwavePage from './pages/MapZwave';
 const history = createBrowserHistory();
 
 const httpLink = createHttpLink({
-  uri: 'https://192.168.1.9:4000/graphql',
+  uri: '/graphql',
   fetchOptions: {
     agent: new Agent({
       rejectUnauthorized: false,
@@ -39,7 +39,7 @@ const httpLink = createHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: `wss://192.168.1.9:4000/graphql`,
+  uri: '/graphql',
   options: {
     reconnect: true,
     connectionCallback: (e) => e && console.error(e)
