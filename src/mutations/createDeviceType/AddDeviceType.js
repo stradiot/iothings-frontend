@@ -2,8 +2,6 @@ import React from 'react';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import CreateDeviceTypeForm from '../../components/createDeviceType/CreateDeviceTypeForm';
-
 import ProtocolsAndParametersQuery from '../../queries/createDeviceType/ProtocolsAndParametersQuery';
 
 const ADD_DEVICE_TYPE = gql`
@@ -14,11 +12,14 @@ const ADD_DEVICE_TYPE = gql`
   }
 `;
 
-const AddDeviceType = () => {
+const AddDeviceType = ({ history }) => {
   return (
     <Mutation mutation={ADD_DEVICE_TYPE}>
       {(addDeviceType) => (
-        <ProtocolsAndParametersQuery addDeviceType={addDeviceType}/>
+        <ProtocolsAndParametersQuery
+          addDeviceType={addDeviceType}
+          history={history}
+        />
       )}
     </Mutation>
   );

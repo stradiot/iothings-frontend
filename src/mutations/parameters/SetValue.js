@@ -15,8 +15,8 @@ const SET_VALUE = gql`
 const SetValue = ({ paramId }) => {
   return (
     <Mutation mutation={SET_VALUE}>
-      {(setValue) => (
-        <SetValueModal setValue={setValue} paramId={paramId}></SetValueModal>
+      {(setValue) => (      
+        <SetValueModal setValue={setValue} paramId={paramId}/>
       )}
     </Mutation>
   );

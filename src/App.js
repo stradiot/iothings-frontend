@@ -58,12 +58,16 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const errorHandler = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
-    graphQLErrors.map((e) => console.error(e));
+    graphQLErrors.forEach((e) => {
+      console.error(e.message);
+      alert(e.message);
+    });
   if (networkError) {
     if (networkError.statusCode === 401) {
       history.push('/login');
     } else {
       console.error(networkError);
+      alert(networkError.message);
     }
   }
 });

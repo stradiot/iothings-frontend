@@ -2,28 +2,24 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import ActiveModulesTable from '../../components/modules/ActiveModulesTable';
 
+const ACTIVE_MODULES = gql`
+  query{
+    ActiveModules{
+      moduleId
+      info
+      available
+      type
+    }
+  }
+`;
+
 const ActiveModulesQuery = () => (
-  <Query
-    query={gql`
-        query{
-          ActiveModules{
-            moduleId
-            info
-            available
-            type
-          }
-        }
-    `}
-  >
+  <Query query={ACTIVE_MODULES}>
     {({ loading, error, data }) => {
       if (error) {
-        const { graphQLErrors, networkError } = error;
-
-        if (networkError) return <ErrorModal message={networkError.message}/>;
-        if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+        return null;
       }
 
       if (loading) return(

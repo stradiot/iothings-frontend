@@ -2,33 +2,29 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import DevicesTable from '../../components/devices/DevicesTable';
 
 import AddDeviceMutation from '../../mutations/devices/AddDevice';
 
-const DevicesQuery = () => (
-  <Query
-    query={gql`
-      query{
-        Devices{
-          devId
-          name
-          type{
-            type
-            model
-            supplier
-          }
-        }
+const DEVICES = gql`
+  query{
+    Devices{
+      devId
+      name
+      type{
+        type
+        model
+        supplier
       }
-    `}
-  >
+    }
+  }
+`;
+
+const DevicesQuery = () => (
+  <Query query={DEVICES}>
     {({ loading, error, data, refetch }) => {
       if (error) {
-        const { graphQLErrors, networkError } = error;
-
-        if (networkError) return <ErrorModal message={networkError.message}/>;
-        if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+        return null;
       }
 
       if (loading) return(

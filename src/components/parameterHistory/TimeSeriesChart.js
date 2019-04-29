@@ -11,30 +11,30 @@ import {
 import { TimeSeries } from "pondjs";
 
 const LineStyler = styler([
-    { key: "value", color: "#3f51b5", width: 2 }
+    { key: 'value', color: '#3f51b5', width: 2 }
 ]);
 
 const markerStyle = {
   backgroundColor: 'rgba(63, 81, 181, 0.3)',
-  color: "black",
-  marginLeft: "5px",
-  borderStyle: "solid",
-  borderWidth: "thin",
-  borderRadius: "7px",
-  padding: "5px"
+  color: 'black',
+  marginLeft: '5px',
+  borderStyle: 'solid',
+  borderWidth: 'thin',
+  borderRadius: '7px',
+  padding: '5px'
 };
 
 const trackerStyle = {
   line: {
-    stroke: "rgba(63, 81, 181, 0.5)",
-    cursor: "default",
-    pointerEvents: "none"
+    stroke: 'rgba(63, 81, 181, 0.5)',
+    cursor: 'default',
+    pointerEvents: 'none'
   }
 };
 
 class TimeSeriesChart extends Component {
   series = new TimeSeries({
-      columns: ["time", "value"],
+      columns: ['time', 'value'],
       points: this.props.data
   })
   state = {
@@ -47,29 +47,29 @@ class TimeSeriesChart extends Component {
     return (
       <div className="section">
         { this.state.tracker ?
-          <div style={{position: 'relative'}}>
-              <div style={{position: 'absolute', left: this.state.trackerX}}>
-                  <div style={markerStyle}>
-                    {
-                      new Intl.DateTimeFormat('sk-SK', {
-                          year: 'numeric',
-                          month: 'numeric',
-                          day: 'numeric',
-                          hour: 'numeric',
-                          minute: 'numeric',
-                          second: 'numeric'
-                        }).format(this.state.tracker)
-                    }
-                    <br/>
-                    <b>
-                      {
-                        this.state.trackerEvent.get('value') === null ?
-                        null
-                        : `Value: ${this.state.trackerEvent.get('value').toFixed(4)}`
-                      }
-                    </b>
-                  </div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', left: this.state.trackerX }}>
+              <div style={markerStyle}>
+                {
+                  new Intl.DateTimeFormat('sk-SK', {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric'
+                    }).format(this.state.tracker)
+                }
+                <br/>
+                <b>
+                  {
+                    this.state.trackerEvent.get('value') === null ?
+                      null
+                    : `Value: ${this.state.trackerEvent.get('value').toFixed(4)}`
+                  }
+                </b>
               </div>
+            </div>
           </div>
         : null }
         <Resizable>
@@ -90,30 +90,33 @@ class TimeSeriesChart extends Component {
             minTime={this.series.range().begin()}
             minDuration={1000 * 60 * 60 * 24 * 30}
             timeAxisStyle={{
-              axis: { stroke: "black", strokeWidth: 2 },
-              ticks: { stroke: "black" },
-              values: { "font-size": "1rem" }
-            }}
-            >
-              <ChartRow height="400">
-                  <YAxis
-                    id="axisY"
-                    min={this.series.min()}
-                    max={this.series.max()}
-                    width="60"
-                    type="linear"
-                    format=",.2f"
-                    transition={300}
-                    style={{
-                      axis: { stroke: "black", "stroke-width": 2 },
-                      ticks: { stroke: "black" },
-                      values: { "font-size": "0.9rem" }
-                    }}
-                  />
-                  <Charts>
-                      <LineChart axis="axisY" series={this.series} style={LineStyler}/>
-                  </Charts>
-              </ChartRow>
+              axis: { stroke: 'black', strokeWidth: 2 },
+              ticks: { stroke: 'black' },
+              values: { 'font-size': '1rem' }
+            }}>
+            <ChartRow height="400">
+              <YAxis
+                id="axisY"
+                min={this.series.min()}
+                max={this.series.max()}
+                width="60"
+                type="linear"
+                format=",.2f"
+                transition={300}
+                style={{
+                  axis: { stroke: 'black', 'stroke-width': 2 },
+                  ticks: { stroke: 'black' },
+                  values: { 'font-size': '0.9rem' }
+                }}
+              />
+              <Charts>
+                <LineChart
+                  axis="axisY"
+                  series={this.series}
+                  style={LineStyler}
+                />
+              </Charts>
+            </ChartRow>
           </ChartContainer>
         </Resizable>
       </div>

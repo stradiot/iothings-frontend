@@ -16,7 +16,12 @@ const RemoveDevice = ({ devId, name, data, refetchDevices }) => {
   return (
     <Mutation mutation={REMOVE_DEVICE}>
       {(removeDevice) => (
-        <RemoveDeviceModal devId={devId} name={name} removeDevice={removeDevice} refetchDevices={refetchDevices}/>
+        <RemoveDeviceModal
+          devId={devId}
+          name={name}
+          removeDevice={removeDevice}
+          refetchDevices={refetchDevices}
+        />
       )}
     </Mutation>
   );

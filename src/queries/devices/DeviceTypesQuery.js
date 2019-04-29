@@ -2,27 +2,23 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import AddDeviceModal from '../../components/devices/AddDeviceModal';
 
+const DEVICE_TYPES = gql`
+  query{
+    DeviceTypes{
+      typeId
+      supplier
+      model
+    }
+  }
+`;
+
 const DeviceTypesQuery = ({ addDevice, refetchDevices }) => (
-  <Query
-    query={gql`
-      query{
-        DeviceTypes{
-          typeId
-        	supplier
-          model
-        }
-      }
-    `}
-  >
+  <Query query={DEVICE_TYPES}>
     {({ loading, error, data }) => {
       if (error) {
-        const { graphQLErrors, networkError } = error;
-
-        if (networkError) return <ErrorModal message={networkError.message}/>;
-        if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+        return null;
       }
 
       if (loading) return(
@@ -40,7 +36,11 @@ const DeviceTypesQuery = ({ addDevice, refetchDevices }) => (
       )
 
       return (
-        <AddDeviceModal data={data.DeviceTypes} addDevice={addDevice} refetchDevices={refetchDevices}/>
+        <AddDeviceModal
+          data={data.DeviceTypes}
+          addDevice={addDevice}
+          refetchDevices={refetchDevices}
+        />
       );
     }}
   </Query>

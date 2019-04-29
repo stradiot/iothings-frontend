@@ -4,7 +4,6 @@ import ZwaveDeviceQuery from '../../queries/zwave/ZwaveDeviceQuery';
 
 class AllZwaveDevicesTable extends Component {
   componentDidMount(){
-    this.props.subscribeToNodeAdded();
     this.props.subscribeToNodeRemoved();
     this.props.subscribeToNodeReady();
   }
@@ -13,7 +12,11 @@ class AllZwaveDevicesTable extends Component {
       const { moduleId, nodeId } = device;
 
       return (
-        <ZwaveDeviceQuery key={`${moduleId}${nodeId}`} data={device} history={this.props.history}/>
+        <ZwaveDeviceQuery
+          key={`${moduleId}${nodeId}`}
+          data={device}
+          history={this.props.history}
+        />
       );
     });
 
@@ -22,11 +25,11 @@ class AllZwaveDevicesTable extends Component {
         <table className="responsive-table centered highlight">
           <thead>
             <tr>
-                <th>Module ID</th>
-                <th>Node ID</th>
-                <th>Manufacturer</th>
-                <th>Product</th>
-                <th>Type</th>
+              <th>Module ID</th>
+              <th>Node ID</th>
+              <th>Manufacturer</th>
+              <th>Product</th>
+              <th>Type</th>
             </tr>
           </thead>
           <tbody>

@@ -16,7 +16,7 @@ const ZwaveRemoveNode = ({ data }) => {
   return (
     <Mutation mutation={ZWAVE_REMOVE_NODE}>
       {(zwaveRemoveNode) => (
-        <ZwaveRemoveNodeModal zwaveRemoveNode={zwaveRemoveNode} data={data}></ZwaveRemoveNodeModal>
+        <ZwaveRemoveNodeModal zwaveRemoveNode={zwaveRemoveNode} data={data}/>
       )}
     </Mutation>
   );

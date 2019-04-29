@@ -16,7 +16,7 @@ const ZwaveAddNode = ({ data }) => {
   return (
     <Mutation mutation={ZWAVE_ADD_NODE}>
       {(zwaveAddNode) => (
-        <ZwaveAddNodeModal zwaveAddNode={zwaveAddNode} data={data}></ZwaveAddNodeModal>
+        <ZwaveAddNodeModal zwaveAddNode={zwaveAddNode} data={data}/>
       )}
     </Mutation>
   );

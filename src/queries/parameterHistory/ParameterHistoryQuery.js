@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import TimeSeriesChart from '../../components/parameterHistory/TimeSeriesChart';
+
+const PARAM_HISTORY = gql`
+  query($paramId: Int!, $start: Int!, $end: Int!, $resolution: Int!){
+    ParamHistory(paramId: $paramId, start: $start, end: $end, resolution: $resolution){
+      data{
+        timestamp
+        value
+      }
+    }
+  }
+`;
 
 class ParameterHistoryQuery extends Component {
   render(){
@@ -13,26 +23,10 @@ class ParameterHistoryQuery extends Component {
     ) return null;
 
     return (
-      <Query
-        query={gql`
-          query($paramId: Int!, $start: Int!, $end: Int!, $resolution: Int!){
-            ParamHistory(paramId: $paramId, start: $start, end: $end, resolution: $resolution){
-              data{
-                timestamp
-                value
-              }
-            }
-          }
-        `}
-
-        variables={{ ...this.props }}
-      >
+      <Query query={PARAM_HISTORY} variables={{ ...this.props }}>
         {({ loading, error, data }) => {
           if (error) {
-            const { graphQLErrors, networkError } = error;
-
-            if (networkError) return <ErrorModal message={networkError.message}/>;
-            if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+            return null;
           }
 
           if (loading) return(

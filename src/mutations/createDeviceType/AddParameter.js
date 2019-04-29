@@ -12,11 +12,20 @@ const ADD_PARAMETER = gql`
   }
 `;
 
-const AddParameter = ({ addDeviceType, parameters, protocols, refetchParameters }) => {
+const AddParameter = (props) => {
+  const {
+    history,
+    addDeviceType,
+    parameters,
+    protocols,
+    refetchParameters
+  } = props;
+
   return (
     <Mutation mutation={ADD_PARAMETER}>
       {(addParameter) => (
         <CreateDeviceTypeForm
+          history={history}
           parameters={parameters}
           protocols={protocols}
           addDeviceType={addDeviceType}

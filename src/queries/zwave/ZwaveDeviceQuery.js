@@ -9,7 +9,7 @@ import ZwaveDisablePoll from '../../mutations/zwave/ZwaveDisablePoll';
 import ZwaveDeviceDetail from '../../components/zwave/ZwaveDeviceDetail';
 import ZwaveParameterDetail from '../../components/zwave/ZwaveParameterDetail';
 
-const query = gql`
+const ZWAVE_DEVICE = gql`
   query ($moduleId: ID!, $nodeId: Int!){
     ZwaveDevice(moduleId: $moduleId, nodeId: $nodeId){
       moduleId
@@ -42,7 +42,7 @@ class ZwaveDeviceQuery extends Component {
     const { moduleId, nodeId } = this.props.data;
 
     const { data } = await client.query({
-      query,
+      query: ZWAVE_DEVICE,
       variables: {
         moduleId: moduleId,
         nodeId: nodeId
@@ -51,7 +51,8 @@ class ZwaveDeviceQuery extends Component {
 
     this.setState({ ...data.ZwaveDevice });
 
-    const modal = document.getElementById(`ZwaveDeviceDetail${moduleId}${nodeId}`);
+    const modalName = `ZwaveDeviceDetail${moduleId}${nodeId}`;
+    const modal = document.getElementById(modalName);
     M.Modal.getInstance(modal).open();
   };
 
@@ -59,12 +60,13 @@ class ZwaveDeviceQuery extends Component {
     const { moduleId, nodeId } = this.props.data;
 
     const { data } = await client.query({
-      query,
+      query: ZWAVE_DEVICE,
       variables: {
         moduleId: moduleId,
         nodeId: nodeId
       }
     });
+
     this.props.history.push({
       pathname: '/zwave/mapZwave',
       state: {
@@ -76,13 +78,28 @@ class ZwaveDeviceQuery extends Component {
   };
 
   render() {
-    const { moduleId, nodeId, manufacturer, product, type, parameters } = this.state;
+    const {
+      moduleId,
+      nodeId,
+      manufacturer,
+      product,
+      type,
+      parameters
+    } = this.state;
 
     const paramDetails = parameters.map(param => (
       <Fragment key={`${moduleId}${param.valueId}`}>
         <ZwaveParameterDetail data={{ ...param, moduleId, nodeId }}/>
-        <ZwaveEnablePoll data={{ moduleId, valueId: param.valueId, pollIntensity: param.pollIntensity }}/>
-        <ZwaveDisablePoll data={{ moduleId, valueId: param.valueId, name: param.name }}/>
+        <ZwaveEnablePoll
+          data={{
+            moduleId,
+            valueId: param.valueId,
+            pollIntensity: param.pollIntensity
+          }}
+        />
+        <ZwaveDisablePoll
+          data={{ moduleId, valueId: param.valueId, name: param.name }}
+        />
       </Fragment>
     ));
 
@@ -100,8 +117,7 @@ class ZwaveDeviceQuery extends Component {
               <ZwaveDeviceDetail data={this.state}/>
               <button
                 className="btn waves-effect waves-light indigo"
-                onClick={() => this.onMapClick(client)}
-              >
+                onClick={() => this.onMapClick(client)}>
                 <i className="material-icons">map</i>
               </button>
             </td>

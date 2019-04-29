@@ -16,7 +16,7 @@ const RestartModule = ({ moduleId }) => {
   return (
     <Mutation mutation={RESTART_MODULE}>
       {(restartModule) => (
-        <RestartModuleModal restartModule={restartModule} moduleId={moduleId}></RestartModuleModal>
+        <RestartModuleModal restartModule={restartModule} moduleId={moduleId}/>
       )}
     </Mutation>
   );

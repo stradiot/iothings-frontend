@@ -4,7 +4,8 @@ import moment from 'moment';
 
 class DeviceParameterDetail extends Component {
   componentDidMount() {
-    const modal = document.getElementById(`DeviceParameterDetail${this.props.data.paramId}`);
+    const modalName = `DeviceParameterDetail${this.props.data.paramId}`;
+    const modal = document.getElementById(modalName);
     M.Modal.init(modal);
   }
   render(){
@@ -25,109 +26,103 @@ class DeviceParameterDetail extends Component {
       <div
         style={{ maxHeight: '100%', cursor: 'default', textAlign: 'left' }}
         className="modal"
-        id={`DeviceParameterDetail${paramId}`}
-        >
+        id={`DeviceParameterDetail${paramId}`}>
         <div className="card-panel" style={{ margin: '0px' }}>
           <ul style={{ border: 'none' }} className="collection">
             <b>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Parameter name
-                   <div className="secondary-content indigo-text">
-                     {name}
-                   </div>
-                 </div>
-              </li>
-              <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Parameter
-                   <div className="secondary-content indigo-text">
-                     {parameter.name}
-                   </div>
-                 </div>
-              </li>
-              <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                  Value
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Parameter name
                   <div className="secondary-content indigo-text">
-                     {value}
-                   </div>
-                 </div>
+                    {name}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Units
-                   <div className="secondary-content indigo-text">
-                     {units}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                  Parameter
+                  <div className="secondary-content indigo-text">
+                    {parameter.name}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Timestamp
-                   <div className="secondary-content indigo-text">
-                     {moment.unix(timestamp).format('Y-M-D HH:mm:ss')}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                 Value
+                 <div className="secondary-content indigo-text">
+                    {value}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   RRD logging
-                   <div className="secondary-content indigo-text">
-                     {rrdEnable ? 'Enabled' : 'Disabled'}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                  Units
+                  <div className="secondary-content indigo-text">
+                    {units}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Polling
-                   <div className="secondary-content indigo-text">
-                     {polled ? 'Enabled' : 'Disabled'}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                  Timestamp
+                  <div className="secondary-content indigo-text">
+                    {moment.unix(timestamp).format('Y-M-D HH:mm:ss')}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Protocol
-                   <div className="secondary-content indigo-text">
-                     {protocol.name}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                  RRD logging
+                  <div className="secondary-content indigo-text">
+                    {rrdEnable ? 'Enabled' : 'Disabled'}
+                  </div>
+                </div>
               </li>
               <li
                 style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Details
-                   <div className="secondary-content indigo-text">
-                     {details}
-                   </div>
-                 </div>
+                className="collection-item left-align">
+                <div>
+                  Polling
+                  <div className="secondary-content indigo-text">
+                    {polled ? 'Enabled' : 'Disabled'}
+                  </div>
+                </div>
+              </li>
+              <li
+                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
+                className="collection-item left-align">
+                <div>
+                  Protocol
+                  <div className="secondary-content indigo-text">
+                    {protocol.name}
+                  </div>
+                </div>
+              </li>
+              <li
+                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
+                className="collection-item left-align">
+                <div>
+                  Details
+                  <div className="secondary-content indigo-text">
+                    {details}
+                  </div>
+                </div>
               </li>
             </b>
           </ul>

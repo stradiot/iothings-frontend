@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import AllDevParamsTable from '../../components/parameters/AllDevParamsTable';
 
-const query = gql`
+const ALL_DEVICE_PARAMS = gql`
   query {
     AllDeviceParams {
       paramId
@@ -29,7 +28,7 @@ const query = gql`
   }
 `;
 
-const subscription = gql`
+const PARAM_UPDATED = gql`
   subscription {
     paramUpdated{
       paramId,
@@ -43,14 +42,11 @@ const subscription = gql`
 class AllDevParamsQuery extends Component {
   render() {
     return (
-      <Query query={query}>
+      <Query query={ALL_DEVICE_PARAMS}>
         {({ subscribeToMore, loading, error, data }) => {
 
           if (error) {
-            const { graphQLErrors, networkError } = error;
-
-            if (networkError) return <ErrorModal message={networkError.message}/>;
-            if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+            return null;
           }
 
           if (loading) return(
@@ -73,7 +69,7 @@ class AllDevParamsQuery extends Component {
               data={data.AllDeviceParams}
               subscribeToParamUpdates={() =>
                 subscribeToMore({
-                  document: subscription,
+                  document: PARAM_UPDATED,
                   updateQuery: (prev, { subscriptionData }) => {
                     if (!subscriptionData.data) return prev;
 

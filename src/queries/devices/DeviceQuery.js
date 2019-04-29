@@ -9,7 +9,7 @@ import DeviceParameterDetail from '../../components/devices/DeviceParameterDetai
 import RemoveDeviceMutation from '../../mutations/devices/RemoveDevice';
 
 
-const query = gql`
+const DEVICE = gql`
   query ($devId: Int!){
     Device(devId: $devId){
       devId
@@ -51,7 +51,7 @@ class DeviceQuery extends Component {
     const { devId } = this.props.data;
 
     const { data } = await client.query({
-      query,
+      query: DEVICE,
       variables: {
         devId
       }
@@ -72,7 +72,7 @@ class DeviceQuery extends Component {
 
     return (
       <ApolloConsumer>
-        {client => (
+        {(client) => (
           <tr key={`${devId}`} style={{ cursor: 'pointer' }}>
             <td onClick={() => this.onRowClick(client)}>{name}</td>
             <td onClick={() => this.onRowClick(client)}>{type.model}</td>
@@ -81,13 +81,17 @@ class DeviceQuery extends Component {
             <td>
               {paramDetails}
               <DeviceDetail data={this.state}/>
-              <RemoveDeviceMutation refetchDevices={this.props.refetchDevices} devId={devId} name={name}/>
-              <button className="btn-small waves-effect waves-light red lighten-1" onClick={
-                e => {
-                  const modal = document.getElementById(`RemoveDevice${devId}`);
+              <RemoveDeviceMutation
+                refetchDevices={this.props.refetchDevices}
+                devId={devId}
+                name={name}
+              />
+              <button
+                className="btn-small waves-effect waves-light red lighten-1"
+                onClick={(e) => {
+                  const modal = document.getElementById(`RemoveDeviceModal${devId}`);
                   M.Modal.getInstance(modal).open();
-                }
-              }>
+                }}>
                 <i className="material-icons">clear</i>
               </button>
             </td>

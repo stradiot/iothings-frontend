@@ -2,29 +2,25 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import ParameterSelect from '../../components/parameterHistory/ParameterSelect';
+
+const ALL_DEVICE_PARAMS = gql`
+  query {
+    AllDeviceParams {
+      paramId
+      name
+      rrdEnable
+    }
+  }
+`;
 
 class DevParamNamesQuery extends Component {
   render(){
     return (
-      <Query
-        query={gql`
-          query {
-            AllDeviceParams {
-              paramId
-              name
-              rrdEnable
-            }
-          }
-        `}
-      >
+      <Query query={ALL_DEVICE_PARAMS}>
         {({ loading, error, data }) => {
           if (error) {
-            const { graphQLErrors, networkError } = error;
-
-            if (networkError) return <ErrorModal message={networkError.message}/>;
-            if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+            return null;
           }
 
           if (loading) return null;

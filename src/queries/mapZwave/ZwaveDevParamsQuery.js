@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import DeviceParamsQuery from './DeviceParamsQuery';
 
-const query = gql`
+const ZWAVE_DEVICE = gql`
   query ($moduleId: ID!, $nodeId: Int!){
     ZwaveDevice(moduleId: $moduleId, nodeId: $nodeId){
       parameters{
@@ -22,14 +21,11 @@ class ZwaveDevParamsQuery extends Component {
     const { moduleId, nodeId } = this.props.data;
 
     return (
-      <Query query={query} variables={{ moduleId, nodeId }}>
+      <Query query={ZWAVE_DEVICE} variables={{ moduleId, nodeId }}>
         {({ loading, error, data, refetch }) => {
 
           if (error) {
-            const { graphQLErrors, networkError } = error;
-
-            if (networkError) return <ErrorModal message={networkError.message}/>;
-            if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+            return null;
           }
 
           if (loading) return(

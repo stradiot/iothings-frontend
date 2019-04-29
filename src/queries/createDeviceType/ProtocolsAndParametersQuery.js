@@ -2,31 +2,26 @@ import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
-
 import AddParameterMutation from '../../mutations/createDeviceType/AddParameter';
 
-const ProtocolsAndParametersQuery = ({ addDeviceType }) => (
-  <Query
-    query={gql`
-      query{
-        Parameters{
-          paramId
-          name
-        }
-        Protocols{
-          protocolId
-          name
-        }
-      }
-    `}
-  >
+const PARAMETERS_AND_PROTOCOLS = gql`
+  query{
+    Parameters{
+      paramId
+      name
+    }
+    Protocols{
+      protocolId
+      name
+    }
+  }
+`;
+
+const ProtocolsAndParametersQuery = ({ addDeviceType, history }) => (
+  <Query query={PARAMETERS_AND_PROTOCOLS}>
     {({ loading, error, data, refetch }) => {
       if (error) {
-        const { graphQLErrors, networkError } = error;
-
-        if (networkError) return <ErrorModal message={networkError.message}/>;
-        if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+        return null;
       }
 
       if (loading) return(
@@ -45,6 +40,7 @@ const ProtocolsAndParametersQuery = ({ addDeviceType }) => (
 
       return (
         <AddParameterMutation
+          history={history}
           parameters={data.Parameters}
           protocols={data.Protocols}
           refetchParameters={refetch}

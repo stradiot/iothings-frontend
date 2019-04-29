@@ -17,17 +17,23 @@ class MapZwave extends Component {
 
     return (
       <div className="container section center">
-        <h4 className="indigo-text">{`Mapping of Z-Wave device ${product} on module ${moduleId}`}</h4>
+        <h4 className="indigo-text">
+          {`Mapping of Z-Wave device ${product} on module ${moduleId}`}
+        </h4>
         <br/>
         <div style={{ maxWidth: '500px' }} className="input-field center-block">
           <DeviceNamesQuery onChange={(e) => this.setState({
             devId: e.target.value
-          })}/>
+          })}
+        />
         </div>
         {
           this.state.devId === null ?
             null
-          :  <MapZwaveMutation data={this.props.location.state} devId={Number(this.state.devId)}/>
+          :  <MapZwaveMutation
+              data={this.props.location.state}
+              devId={Number(this.state.devId)}
+            />
         }
       </div>
     );

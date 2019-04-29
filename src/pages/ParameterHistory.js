@@ -17,6 +17,7 @@ class ParameterHistory extends Component {
   }
   constructor(props) {
     super(props);
+
     if (this.props.location.state) {
       this.data.paramId = this.props.location.state.paramId;
     }
@@ -97,7 +98,12 @@ class ParameterHistory extends Component {
                 <label htmlFor="startDate">Start date</label>
               </div>
               <div className="input-field" style={{ marginTop: '30px' }}>
-                <input type="text" id="startTime" ref={this.startTime} className="timepicker"/>
+                <input
+                  type="text"
+                  id="startTime"
+                  ref={this.startTime}
+                  className="timepicker"
+                />
                 <label htmlFor="startTime">Start time</label>
               </div>
             </div>
@@ -106,8 +112,9 @@ class ParameterHistory extends Component {
                 <select
                   id="ResolutionSelect"
                   defaultValue="default"
-                  onChange={(e) => (this.data.resolution = Number(e.target.value))}
-                >
+                  onChange={(e) =>
+                    (this.data.resolution = Number(e.target.value))
+                  }>
                   <option value="default" disabled>Choose resolution</option>
                   <option value={60}>1 minute</option>
                   <option value={120}>2 minutes</option>
@@ -122,12 +129,20 @@ class ParameterHistory extends Component {
                 <label htmlFor="endDate">End date</label>
               </div>
               <div className="input-field" style={{ marginTop: '30px' }}>
-                <input type="text" id="endTime" ref={this.endTime} className="timepicker"/>
+                <input
+                  type="text"
+                  id="endTime"
+                  ref={this.endTime}
+                  className="timepicker"
+                />
                 <label htmlFor="endTime">End time</label>
               </div>
             </div>
             <div className="col s12">
-              <button style={{ margin: "20px"}} className="btn-large waves-effect waves-light indigo" type="submit">
+              <button
+                style={{ margin: "20px"}}
+                className="btn-large waves-effect waves-light indigo"
+                type="submit">
                 Show
                 <i className="material-icons right">timeline</i>
               </button>
@@ -135,7 +150,12 @@ class ParameterHistory extends Component {
           </div>
         </form>
 
-        <ParameterHistoryQuery paramId={this.state.paramId} start={this.state.start} end={this.state.end} resolution={this.state.resolution}/>
+        <ParameterHistoryQuery
+          paramId={this.state.paramId}
+          start={this.state.start}
+          end={this.state.end}
+          resolution={this.state.resolution}
+        />
       </div>
     );
   }

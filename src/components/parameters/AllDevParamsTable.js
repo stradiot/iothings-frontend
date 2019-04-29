@@ -7,7 +7,7 @@ import ParameterDetail from './ParameterDetail';
 import SetValue from '../../mutations/parameters/SetValue';
 
 const onRowClick = (paramId) => {
-  const modal = document.getElementById(`Parameter${paramId}`);
+  const modal = document.getElementById(`ParameterDetail${paramId}`);
   M.Modal.getInstance(modal).open();
 }
 
@@ -32,12 +32,12 @@ class AllDevParamsTable extends Component {
           <td>
             <ParameterDetail history={this.props.history} data={param}/>
             <SetValue paramId={paramId}></SetValue>
-            <button className="btn waves-effect waves-light indigo" onClick={
-              e => {
+            <button
+              className="btn waves-effect waves-light indigo"
+              onClick={(e) => {
                 const modal = document.getElementById(`SetValue${paramId}`);
                 M.Modal.getInstance(modal).open();
-              }
-            }>
+              }}>
               <i className="material-icons">settings</i>
             </button>
           </td>
@@ -50,12 +50,12 @@ class AllDevParamsTable extends Component {
         <table className="responsive-table highlight centered">
           <thead>
             <tr>
-                <th>Parameter</th>
-                <th>Device</th>
-                <th>Value</th>
-                <th>Units</th>
-                <th>Protocol</th>
-                <th>Updated</th>
+              <th>Parameter</th>
+              <th>Device</th>
+              <th>Value</th>
+              <th>Units</th>
+              <th>Protocol</th>
+              <th>Updated</th>
             </tr>
           </thead>
           <tbody>

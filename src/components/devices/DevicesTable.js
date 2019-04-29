@@ -8,7 +8,11 @@ class DevicesTable extends Component {
       const { devId, name, type } = device;
 
       return (
-        <DeviceQuery refetchDevices={this.props.refetchDevices} key={devId} data={{ devId, name, type }}/>
+        <DeviceQuery
+          refetchDevices={this.props.refetchDevices}
+          key={devId}
+          data={{ devId, name, type }}
+        />
       );
     });
 
@@ -17,10 +21,10 @@ class DevicesTable extends Component {
         <table className="responsive-table centered highlight">
           <thead>
             <tr>
-                <th>Name</th>
-                <th>Model</th>
-                <th>Supplier</th>
-                <th>Type</th>
+              <th>Name</th>
+              <th>Model</th>
+              <th>Supplier</th>
+              <th>Type</th>
             </tr>
           </thead>
           <tbody>

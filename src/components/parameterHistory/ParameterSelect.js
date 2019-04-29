@@ -15,14 +15,12 @@ class ParameterSelect extends Component {
       <select
         id="ParameterSelect"
         onChange={this.props.onChange}
-        defaultValue={ this.props.paramId ? this.props.paramId : 'default' }
-        >
+        defaultValue={ this.props.paramId ? this.props.paramId : 'default' }>
         <option value="default" disabled>Choose parameter</option>
         {options}
       </select>
     );
   }
-
 }
 
 export default ParameterSelect;

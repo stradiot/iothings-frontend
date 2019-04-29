@@ -15,14 +15,12 @@ class DeviceSelect extends Component {
       <select
         id="DeviceSelect"
         onChange={this.props.onChange}
-        defaultValue={ 'default' }
-        >
+        defaultValue={ 'default' }>
         <option value="default" disabled>Choose device</option>
         {options}
       </select>
     );
   }
-
 }
 
 export default DeviceSelect;

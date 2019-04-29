@@ -4,13 +4,32 @@ import M from "materialize-css";
 class ZwaveEnablePollModal extends Component {
   componentDidMount() {
     const { moduleId, valueId, pollIntensity } = this.props;
-    const modal = document.getElementById(`ZwaveEnablePollModal${moduleId}${valueId}`);
+
+    const modalName = `ZwaveEnablePollModal${moduleId}${valueId}`;
+    const modal = document.getElementById(modalName);
     M.Modal.init(modal, { endingTop: '35%' });
 
     this.setState({ intensity: pollIntensity });
   }
   state = {
     intensity: 0
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { moduleId, valueId } = this.props;
+
+    this.props.zwaveEnablePoll({
+      variables: {
+        intensity: this.state.intensity,
+        moduleId,
+        valueId
+      }
+    });
+
+    const modalName = `ZwaveEnablePollModal${moduleId}${valueId}`;
+    const modal = document.getElementById(modalName);
+    M.Modal.getInstance(modal).close();
   }
   render(){
     const { moduleId, valueId } = this.props;
@@ -20,21 +39,7 @@ class ZwaveEnablePollModal extends Component {
         style={{ maxWidth: "500px", borderRadius: "20px", padding: "20px" }}
         className="modal" id={`ZwaveEnablePollModal${moduleId}${valueId}`}>
         <div className="container center">
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.props.zwaveEnablePoll({
-                variables: {
-                  intensity: this.state.intensity,
-                  moduleId,
-                  valueId
-                }
-              });
-              const modal = document.getElementById(`ZwaveEnablePollModal${moduleId}${valueId}`);
-              M.Modal.getInstance(modal).close();
-            }}
-          >
-
+          <form onSubmit={this.handleSubmit}>
             <div className="input-field">
               <input value={this.state.intensity} type="text" onChange={(e) => {
                 if (!Number.isNaN(Number(e.target.value)) && Number(e.target.value) > 0) {
@@ -51,7 +56,9 @@ class ZwaveEnablePollModal extends Component {
                 <button className="btn disabled">
                   Set poll
                 </button>
-              : <button className="btn waves-effect waves-light indigo" type="submit">
+              : <button
+                  className="btn waves-effect waves-light indigo"
+                  type="submit">
                   Set poll
                 </button>
             }
@@ -60,7 +67,6 @@ class ZwaveEnablePollModal extends Component {
       </div>
     );
   }
-
 }
 
 export default ZwaveEnablePollModal;

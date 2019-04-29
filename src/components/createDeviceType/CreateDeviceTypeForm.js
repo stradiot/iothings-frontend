@@ -3,16 +3,38 @@ import M from "materialize-css";
 
 import AddParameterModal from './AddParameterModal';
 
+const validateConfig = (config) => {
+  const { supplier, model, type, parameters } = config;
+
+  if (!(supplier && model && type)) {
+    return false;
+  }
+
+  if (parameters.length === 0) {
+    return false;
+  }
+
+  for (const param of parameters) {
+    const { paramId, protocolId, name, defVal } = param;
+
+    if (!(paramId && protocolId && name && defVal)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 class CreateDeviceTypeForm extends Component {
   componentDidUpdate() {
     const selects = document.querySelectorAll('select');
     M.FormSelect.init(selects);
   }
   state = {
-    supplier: '',
-    model: '',
-    type: '',
-    details: '',
+    supplier: null,
+    model: null,
+    type: null,
+    details: null,
     parameters: []
   }
   render(){
@@ -31,7 +53,7 @@ class CreateDeviceTypeForm extends Component {
             <div className="input-field">
               <select defaultValue="default" onChange={(e) => {
                 if (e.target.value === 'new') {
-                  const modal = document.getElementById(`AddParameterModal`);
+                  const modal = document.getElementById('AddParameterModal');
                   M.Modal.getInstance(modal).open();
                 } else {
                   const updated = [ ...this.state.parameters ];
@@ -122,79 +144,102 @@ class CreateDeviceTypeForm extends Component {
           <div className="row">
             <div className="col s6">
               <div className="input-field">
-                <input type="text" onChange={(e) => this.setState({ supplier: e.target.value })}/>
+                <input
+                  type="text"
+                  onChange={(e) => this.setState({ supplier: e.target.value })}
+                />
                 <label>Supplier</label>
               </div>
             </div>
             <div className="col s6">
               <div className="input-field">
-                <input type="text" onChange={(e) => this.setState({ model: e.target.value })}/>
+                <input
+                  type="text"
+                  onChange={(e) => this.setState({ model: e.target.value })}
+                />
                 <label>Model</label>
               </div>
             </div>
             <div className="col s6">
               <div className="input-field">
-                <input type="text" onChange={(e) => this.setState({ type: e.target.value })}/>
+                <input
+                  type="text"
+                  onChange={(e) => this.setState({ type: e.target.value })}
+                />
                 <label>Type</label>
               </div>
             </div>
             <div className="col s6">
               <div className="input-field">
-                <input type="text" onChange={(e) => this.setState({ details: e.target.value })}/>
+                <input
+                  type="text"
+                  onChange={(e) => this.setState({ details: e.target.value })}
+                />
                 <label>Details</label>
               </div>
             </div>
           </div>
           <div className="divider"></div>
-          <h5 style={{ marginBottom: '20px' }} className="indigo-text">Parameters</h5>
+          <h5
+            style={{ marginBottom: '20px' }}
+            className="indigo-text">
+            Parameters
+          </h5>
           {paramForms}
         </form>
         <span>
           <button
             className="btn waves-effect waves-light indigo"
             style={{ marginRight: '20px', marginBottom: '20px' }}
-            onClick={
-              e => {
-                const arr = this.state.parameters.concat({ rrdEnable: false });
-                this.setState({ parameters: arr });              }
-            }
-          >
+            onClick={(e) => {
+              const arr = this.state.parameters.concat({ rrdEnable: false });
+              this.setState({ parameters: arr });              }
+            }>
             <i className="material-icons left">add</i>
             Add parameter
           </button>
           <button
             className="btn waves-effect waves-light indigo"
             style={{ marginLeft: '20px', marginRight: '20px', marginBottom: '20px' }}
-            onClick={
-              e => {
-                const arr = this.state.parameters.slice(0, this.state.parameters.length - 1);
-                this.setState({ parameters: arr });
-              }
-            }
-          >
+            onClick={(e) => {
+              const arr = this.state.parameters.slice(0, this.state.parameters.length - 1);
+              this.setState({ parameters: arr });
+            }}>
             <i className="material-icons left">clear</i>
             Remove parameter
           </button>
-          <button
-            className="btn waves-effect waves-light indigo"
-            style={{ marginRight: '20px', marginLeft: '20px', marginBottom: '20px' }}
-            onClick={(e) => {
-              this.props.parameters.length && this.props.addDeviceType({
-                variables: {
-                  config: this.state
-                }
-              });
+          {
+            !validateConfig(this.state) ?
+              <button
+                className="btn disabled"
+                style={{
+                  marginRight: '20px',
+                  marginLeft: '20px',
+                  marginBottom: '20px'
+                }}>
+                <i className="material-icons left">done</i>
+                Submit
+              </button>
+            : <button
+                className="btn waves-effect waves-light indigo"
+                style={{ marginRight: '20px', marginLeft: '20px', marginBottom: '20px' }}
+                onClick={(e) => {
+                  this.props.parameters.length && this.props.addDeviceType({
+                    variables: {
+                      config: this.state
+                    }
+                  });
 
-            }}
-          >
-            <i className="material-icons left">done</i>
-            Submit
-          </button>
+                  this.props.parameters.length && this.props.history.goBack();
+                }}>
+                <i className="material-icons left">done</i>
+                Submit
+              </button>
+          }
         </span>
       </div>
     );
   }
-
 }
 
 export default CreateDeviceTypeForm;

@@ -7,6 +7,7 @@ class ActiveModulesTable extends Component {
   render(){
     const rows = this.props.data.map(module => {
       const { moduleId, info, available, type } = module;
+
       return (
         <tr key={`${moduleId}`} style={{ cursor: 'default' }}>
           <td>{moduleId}</td>
@@ -15,12 +16,12 @@ class ActiveModulesTable extends Component {
           <td>{type}</td>
           <td>
             <RestartModule moduleId={moduleId}/>
-            <button className="btn waves-effect waves-light indigo" onClick={
-              e => {
+            <button
+              className="btn waves-effect waves-light indigo"
+              onClick={() => {
                 const modal = document.getElementById(`RestartModule${moduleId}`);
                 M.Modal.getInstance(modal).open();
-              }
-            }>
+              }}>
               <i className="material-icons">refresh</i>
             </button>
           </td>
@@ -33,10 +34,10 @@ class ActiveModulesTable extends Component {
         <table className="responsive-table centered">
           <thead>
             <tr>
-                <th>Module ID</th>
-                <th>Information</th>
-                <th>Availability</th>
-                <th>Type</th>
+              <th>Module ID</th>
+              <th>Information</th>
+              <th>Availability</th>
+              <th>Type</th>
             </tr>
           </thead>
           <tbody>

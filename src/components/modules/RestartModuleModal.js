@@ -14,23 +14,24 @@ class RestartModuleModal extends Component {
         <p style={{ fontSize: '1.3rem' }}>
           { `Do you really want to restart the module ${this.props.moduleId}?` }
         </p>
-        <button className="btn waves-effect waves-light indigo" onClick={
-          e => {
-            this.props.restartModule({
-              variables: {
-                moduleId: this.props.moduleId
-              }
-            });
-            const modal = document.getElementById(`RestartModule${this.props.moduleId}`);
-            M.Modal.getInstance(modal).close();
-          }
-        }>
+        <button
+          className="btn waves-effect waves-light indigo"
+          onClick={(e) => {
+          this.props.restartModule({
+            variables: {
+              moduleId: this.props.moduleId
+            }
+          });
+
+          const modalName = `RestartModule${this.props.moduleId}`;
+          const modal = document.getElementById(modalName);
+          M.Modal.getInstance(modal).close();
+          }}>
           Restart
         </button>
       </div>
     );
   }
-
 }
 
 export default RestartModuleModal;

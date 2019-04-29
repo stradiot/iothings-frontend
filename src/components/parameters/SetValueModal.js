@@ -14,9 +14,24 @@ class SetValueModal extends Component {
       value: e.target.value
     });
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.setValue({
+      variables: { paramId: this.props.paramId, value: this.state.value }
+    });
+
+    this.valueInput.current.value = '';
+
+    const modal = document.getElementById(`SetValue${this.props.paramId}`);
+    M.Modal.getInstance(modal).close();
+  }
   componentDidMount() {
     const modal = document.getElementById(`SetValue${this.props.paramId}`);
-    M.Modal.init(modal, { endingTop: '35%', onOpenEnd: () => this.valueInput.current.focus() });
+    M.Modal.init(modal, {
+      endingTop: '35%',
+      onOpenEnd: () => this.valueInput.current.focus()
+    });
   }
   render(){
     return (
@@ -24,20 +39,13 @@ class SetValueModal extends Component {
         style={{ maxWidth: "500px", borderRadius: "20px", padding: "20px" }}
         className="modal" id={`SetValue${this.props.paramId}`}>
         <div className="container center">
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.props.setValue({
-                variables: { paramId: this.props.paramId, value: this.state.value }
-              });
-              this.valueInput.current.value = '';
-              const modal = document.getElementById(`SetValue${this.props.paramId}`);
-              M.Modal.getInstance(modal).close();
-            }}
-          >
-
+          <form onSubmit={this.handleSubmit}>
             <div className="input-field">
-              <input type="text" ref={this.valueInput} onChange={this.handleValueInput}/>
+              <input
+                type="text"
+                ref={this.valueInput}
+                onChange={this.handleValueInput}
+              />
               <label htmlFor="value">Value</label>
             </div>
 
@@ -49,7 +57,6 @@ class SetValueModal extends Component {
       </div>
     );
   }
-
 }
 
 export default SetValueModal;

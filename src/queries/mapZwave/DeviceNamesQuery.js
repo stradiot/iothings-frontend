@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import ErrorModal from '../../components/common/ErrorModal';
 import DeviceSelect from '../../components/mapZwave/DeviceSelect';
 
-const query = gql`
+const DEVICES = gql`
   query{
     Devices{
       devId
@@ -17,14 +16,11 @@ const query = gql`
 class DeviceNamesQuery extends Component {
   render() {
     return (
-      <Query query={query}>
+      <Query query={DEVICES}>
         {({ loading, error, data }) => {
 
           if (error) {
-            const { graphQLErrors, networkError } = error;
-
-            if (networkError) return <ErrorModal message={networkError.message}/>;
-            if (graphQLErrors) return graphQLErrors.map(error => <ErrorModal message={error.message}/>);
+            return null;
           }
 
           if (loading) return(

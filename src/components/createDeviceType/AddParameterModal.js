@@ -14,9 +14,26 @@ class AddParameterModal extends Component {
       name: e.target.value
     });
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.addParameter({
+      variables: { name: this.state.name }
+    });
+
+    this.nameInput.current.value = '';
+
+    const modal = document.getElementById('AddParameterModal');
+    M.Modal.getInstance(modal).close();
+
+    this.props.refetchParameters();
+  }
   componentDidMount() {
-    const modal = document.getElementById(`AddParameterModal`);
-    M.Modal.init(modal, { endingTop: '35%', onOpenEnd: () => this.nameInput.current.focus() });
+    const modal = document.getElementById('AddParameterModal');
+    M.Modal.init(modal, {
+      endingTop: '35%',
+      onOpenEnd: () => this.nameInput.current.focus()
+    });
   }
   render(){
     return (
@@ -25,24 +42,19 @@ class AddParameterModal extends Component {
         className="modal" id='AddParameterModal'>
         <div className="container center">
           <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.props.addParameter({
-                variables: { name: this.state.name }
-              });
-              this.nameInput.current.value = '';
-              const modal = document.getElementById("AddParameterModal");
-              M.Modal.getInstance(modal).close();
-              this.props.refetchParameters();
-            }}
-          >
-
+            onSubmit={this.handleSubmit}>
             <div className="input-field">
-              <input type="text" ref={this.nameInput} onChange={this.handleNameInput}/>
+              <input
+                type="text"
+                ref={this.nameInput}
+                onChange={this.handleNameInput}
+              />
               <label>Name</label>
             </div>
 
-            <button className="btn waves-effect waves-light indigo" type="submit">
+            <button
+              className="btn waves-effect waves-light indigo"
+              type="submit">
               Add parameter
             </button>
           </form>
@@ -50,7 +62,6 @@ class AddParameterModal extends Component {
       </div>
     );
   }
-
 }
 
 export default AddParameterModal;

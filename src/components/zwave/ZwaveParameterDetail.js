@@ -3,7 +3,10 @@ import M from "materialize-css";
 
 class ZwaveParameterDetail extends Component {
   componentDidMount() {
-    const modal = document.getElementById(`ZwaveParameterDetail${this.props.data.moduleId}${this.props.data.valueId}`);
+    const { moduleId, valueId } = this.props.data;
+
+    const modalName = `ZwaveParameterDetail${moduleId}${valueId}`;
+    const modal = document.getElementById(modalName);
     M.Modal.init(modal);
   }
   render(){
@@ -26,144 +29,179 @@ class ZwaveParameterDetail extends Component {
       <div
         style={{ maxHeight: '100%', cursor: 'default', textAlign: 'left' }}
         className="modal"
-        id={`ZwaveParameterDetail${moduleId}${valueId}`}
-        >
+        id={`ZwaveParameterDetail${moduleId}${valueId}`}>
         <div className="card-panel" style={{ margin: '0px' }}>
           <ul style={{ border: 'none' }} className="collection">
             <b>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Module ID
-                   <div className="secondary-content indigo-text">
-                     {moduleId}
-                   </div>
-                 </div>
-              </li>
-              <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
                 <div>
-                   Node ID
-                   <div className="secondary-content indigo-text">
-                     {nodeId}
-                   </div>
-                 </div>
+                  Module ID
+                  <div className="secondary-content indigo-text">
+                    {moduleId}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
                 <div>
-                   Value ID
-                   <div className="secondary-content indigo-text">
-                     {valueId}
-                   </div>
-                 </div>
+                  Node ID
+                  <div className="secondary-content indigo-text">
+                    {nodeId}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
                 <div>
-                   Name
-                   <div className="secondary-content indigo-text">
-                     {name}
-                   </div>
-                 </div>
+                  Value ID
+                  <div className="secondary-content indigo-text">
+                    {valueId}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Value
-                   <div className="secondary-content indigo-text">
-                     {value}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Name
+                  <div className="secondary-content indigo-text">
+                    {name}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Units
-                   <div className="secondary-content indigo-text">
-                     {units}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Value
+                  <div className="secondary-content indigo-text">
+                    {value}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Linked to parameter
-                   <div className="secondary-content indigo-text">
-                     {devParamId}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Units
+                  <div className="secondary-content indigo-text">
+                    {units}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Writable
-                   <div className="secondary-content indigo-text">
-                     {writable ? 'yes' : 'no'}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Linked to parameter
+                  <div className="secondary-content indigo-text">
+                    {devParamId}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Polled
-                   <div className="secondary-content indigo-text">
-                    {polled ? 'yes' : 'no'}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Writable
+                  <div className="secondary-content indigo-text">
+                    {writable ? 'yes' : 'no'}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Poll intensity
-                   <div className="secondary-content indigo-text">
-                     {pollIntensity}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Polled
+                  <div className="secondary-content indigo-text">
+                   {polled ? 'yes' : 'no'}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '5px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Possible values
-                   <div className="secondary-content indigo-text">
-                     {possibleValues && possibleValues.map(value =>
-                        `[ ${value} ]`
-                     )}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Poll intensity
+                  <div className="secondary-content indigo-text">
+                    {pollIntensity}
+                  </div>
+                </div>
               </li>
               <li
-                style={{ border: 'none', paddingTop: '0px', paddingBottom: '0px' }}
-                className="collection-item left-align"
-                >
-                 <div>
-                   Help
-                   <div className="secondary-content indigo-text">
-                     {help}
-                   </div>
-                 </div>
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '5px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Possible values
+                  <div className="secondary-content indigo-text">
+                    {possibleValues && possibleValues.map((value) =>
+                      `[ ${value} ]`
+                    )}
+                  </div>
+                </div>
+              </li>
+              <li
+                style={{
+                  border: 'none',
+                  paddingTop: '0px',
+                  paddingBottom: '0px'
+                }}
+                className="collection-item left-align">
+                <div>
+                  Help
+                  <div className="secondary-content indigo-text">
+                    {help}
+                  </div>
+                </div>
               </li>
             </b>
           </ul>

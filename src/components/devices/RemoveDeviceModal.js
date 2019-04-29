@@ -3,26 +3,28 @@ import M from "materialize-css";
 
 class RemoveDeviceModal extends Component {
   componentDidMount() {
-    const modal = document.getElementById(`RemoveDevice${this.props.devId}`);
+    const modal = document.getElementById(`RemoveDeviceModal${this.props.devId}`);
     M.Modal.init(modal, { endingTop: '35%' });
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.removeDevice({
+      variables: { devId: this.props.devId }
+    });
+
+    const modal = document.getElementById(`RemoveDeviceModal${this.props.devId}`);
+    M.Modal.getInstance(modal).close();
+
+    this.props.refetchDevices();
   }
   render(){
     return (
       <div
         style={{ maxWidth: "500px", borderRadius: "20px", padding: "20px" }}
-        className="modal" id={`RemoveDevice${this.props.devId}`}>
+        className="modal" id={`RemoveDeviceModal${this.props.devId}`}>
         <div className="container center">
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.props.removeDevice({
-                variables: { devId: this.props.devId }
-              });
-              const modal = document.getElementById(`RemoveDevice${this.props.devId}`);
-              M.Modal.getInstance(modal).close();
-              this.props.refetchDevices();
-            }}
-          >
+          <form onSubmit={this.handleSubmit}>
             <p style={{ fontSize: '1.3rem' }}>
               { `Do you really want to remove the device ${this.props.name}?` }
             </p>
@@ -34,7 +36,6 @@ class RemoveDeviceModal extends Component {
       </div>
     );
   }
-
 }
 
 export default RemoveDeviceModal;
